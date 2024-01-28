@@ -24,29 +24,3 @@ struct NewsResponse: Decodable {
         case sourceURL = "link"
     }
 }
-
-extension NewsResponse: ContentModelProtocol {
-    var contentId: String {
-        id
-    }
-    
-    var contentDescription: String {
-        description ?? ""
-    }
-    
-    var contentAuthor: String {
-        creators?.first ?? ""
-    }
-    
-    var contentSourceLink: String {
-        sourceURL ?? ""
-    }
-    
-    var contentImageURL: URL? {
-        URL(string: imageURL ?? "")
-    }
-    
-    var contentDate: Date {
-        date
-    }
-}

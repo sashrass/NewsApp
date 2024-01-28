@@ -14,13 +14,13 @@ enum LoadContentError: Error {
 }
 
 protocol ContentListRoutingLogic {
-    func navigateToContentDetails(model: ContentModelProtocol)
+    func navigateToContentDetails(with contentModel: ContentModel)
 }
 
 protocol ContentListViewModelProtocol {
     var contentConfigurations: [ContentCollectionCellConfiguration] { get }
     
-    func setupContent()
+    func setup()
     func fetchMoreContent()
     func didSelectContent(with index: Int)
 }
@@ -29,7 +29,10 @@ protocol ContentListViewModelOutput: AnyObject {
     func contentDidChange()
 }
 
-protocol ContentListServiceProtocol {
-    func fetchInitialContent(completion: @escaping (Result<[ContentModelProtocol], LoadContentError>) -> Void)
-    func fetchMoreContent(completion: @escaping (Result<[ContentModelProtocol], LoadContentError>) -> Void)
+protocol ContentListContentManagerProtocol {
+    var contentAddedHandler: ((ContentModel) -> Void)? { get set }
+    var contentDeletedHandler: ((ContentModel) -> Void)? { get set }
+    
+    func fetchInitialContent(completion: @escaping (Result<[ContentModel], LoadContentError>) -> Void)
+    func fetchMoreContent(completion: @escaping (Result<[ContentModel], LoadContentError>) -> Void)
 }

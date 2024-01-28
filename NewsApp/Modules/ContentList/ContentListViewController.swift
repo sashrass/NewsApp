@@ -26,8 +26,6 @@ class ContentListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "News List"
-        
         setupDataSource()
         
         var snapshot = dataSource.snapshot()
@@ -36,7 +34,9 @@ class ContentListViewController: UIViewController {
         
         collectionView.delegate = self
         
-        vm.setupContent()
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        vm.setup()
     }
     
     private func setupDataSource() {
@@ -74,7 +74,7 @@ extension ContentListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == vm.contentConfigurations.count - 10 {
-            vm.setupContent()
+            vm.fetchMoreContent()
         }
     }
 }

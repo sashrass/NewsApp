@@ -17,22 +17,43 @@ class ContentDetailsViewModel: ContentDetailsViewModelProtocol {
     }
     
     weak var output: ContentDetailsViewModelOutput?
+    private var contentManager: ContentDetailsContentManagerProtocol
     
-    init(contentModel: ContentModelProtocol) {
+    private var contentModel: ContentModel
+    
+    init?(contentId: String, contentManager: ContentDetailsContentManagerProtocol) {
+        guard let contentModel = contentManager.fetchContent(by: contentId) else { return nil }
+        
+        self.contentManager = contentManager
+        self.contentModel = contentModel
         self.contentConfiguration = contentModel.contentConfiguration
-        self.isFavorite = false
+        self.isFavorite = contentModel.isFavorite
+    }
+    
+    func setup() {
+        setupContentManager()
     }
     
     func didSelectFavoriteButton() {
+        var model = contentModel
+        model.isFavorite.toggle()
         
+        contentManager.updateContent(model)
+    }
+    
+    private func setupContentManager() {
+        contentManager.contentDidUpdateHandler = { [weak self] content in
+            self?.contentModel = content
+            self?.isFavorite = content.isFavorite
+        }
     }
 }
 
-private extension ContentModelProtocol {
+private extension ContentModel {
     var contentConfiguration: ContentDetailsViewConfiguration {
-        ContentDetailsViewConfiguration(imageURL: self.contentImageURL,
-                                        descriptionText: self.contentDescription,
-                                        secondaryText: self.contentAuthor,
-                                        thirdText: self.contentSourceLink)
+        ContentDetailsViewConfiguration(imageURL: self.imageURL,
+                                        descriptionText: self.description,
+                                        secondaryText: self.author,
+                                        thirdText: self.sourceURL?.absoluteString ?? "")
     }
 }

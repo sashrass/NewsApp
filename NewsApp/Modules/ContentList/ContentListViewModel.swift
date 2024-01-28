@@ -17,16 +17,18 @@ class ContentListViewModel: ContentListViewModelProtocol {
     
     var router: ContentListRoutingLogic?
     weak var output: ContentListViewModelOutput?
-    var service: ContentListServiceProtocol?
+    var contentManager: ContentListContentManagerProtocol?
     
-    var contentModels: [ContentModelProtocol] = [] {
+    var contentModels: [ContentModel] = [] {
         didSet {
             contentConfigurations = contentModels.map { $0.contentCellConfiguration }
         }
     }
     
-    func setupContent() {
-        service?.fetchInitialContent(completion: { [weak self] result in
+    func setup() {
+        setupContentManager()
+        
+        contentManager?.fetchInitialContent(completion: { [weak self] result in
             DispatchQueue.main.async {
                 self?.handleContentReceiving(result: result)
             }
@@ -34,7 +36,7 @@ class ContentListViewModel: ContentListViewModelProtocol {
     }
     
     func fetchMoreContent() {
-        service?.fetchMoreContent { [weak self] result in
+        contentManager?.fetchMoreContent { [weak self] result in
             DispatchQueue.main.async {
                 self?.handleContentReceiving(result: result)
             }
@@ -42,13 +44,32 @@ class ContentListViewModel: ContentListViewModelProtocol {
     }
     
     func didSelectContent(with index: Int) {
-        let model = contentModels[index]
-        router?.navigateToContentDetails(model: model)
+        let contentModel = contentModels[index]
+        router?.navigateToContentDetails(with: contentModel)
     }
 }
 
 extension ContentListViewModel {
-    private func handleContentReceiving(result: Result<[ContentModelProtocol], LoadContentError>) {
+    
+    private func setupContentManager() {
+        contentManager?.contentAddedHandler = { [weak self] content in
+            self?.handleContentAddition(content: content)
+        }
+        
+        contentManager?.contentDeletedHandler = { [weak self] content in
+            self?.handleContentRemoval(content: content)
+        }
+    }
+    
+    private func handleContentAddition(content: ContentModel) {
+        contentModels.insert(content, at: 0)
+    }
+    
+    private func handleContentRemoval(content: ContentModel) {
+        contentModels.removeAll(where: { $0.id == content.id })
+    }
+    
+    private func handleContentReceiving(result: Result<[ContentModel], LoadContentError>) {
         switch result {
         case .success(let content):
             contentModels.append(contentsOf: content)
@@ -56,14 +77,15 @@ extension ContentListViewModel {
             break
         }
     }
+    
 }
 
-private extension ContentModelProtocol {
+private extension ContentModel {
     var contentCellConfiguration: ContentCollectionCellConfiguration {
-        ContentCollectionCellConfiguration(id: self.contentId,
-                                           title: self.contentDescription,
-                                           secondText: self.contentDescription,
-                                           thirdText: self.contentAuthor,
-                                           imageURL: self.contentImageURL)
+        ContentCollectionCellConfiguration(id: self.id,
+                                           title: self.description,
+                                           secondText: self.date.description,
+                                           thirdText: self.author,
+                                           imageURL: self.imageURL)
     }
 }

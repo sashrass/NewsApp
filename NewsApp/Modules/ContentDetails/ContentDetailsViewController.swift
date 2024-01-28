@@ -27,6 +27,8 @@ class ContentDetailsViewController: UIViewController {
         setupNavigationBar()
         
         contentView.configuration = vm.contentConfiguration
+        
+        vm.setup()
     }
     
     private func setupNavigationBar() {
@@ -40,10 +42,6 @@ class ContentDetailsViewController: UIViewController {
     @objc
     private func didSelectFavoriteButton() {
         vm.didSelectFavoriteButton()
-    }
-    
-    deinit {
-        print("deinit")
     }
 }
 

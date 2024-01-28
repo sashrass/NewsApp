@@ -1,5 +1,5 @@
 //
-//  AllNewsService.swift
+//  AllNewsContentManager.swift
 //  NewsApp
 //
 //  Created by Alexandr Rassokhin on 27.01.2024.
@@ -7,15 +7,19 @@
 
 import Foundation
 
-class AllNewsService: ContentListServiceProtocol {
+class AllNewsContentManager: ContentListContentManagerProtocol {
+    
+    var contentAddedHandler: ((ContentModel) -> Void)?
+    var contentDeletedHandler: ((ContentModel) -> Void)?
+    
     private var currentlyLoadingPageId: String?
     private var nextPageId: String?
     
-    func fetchInitialContent(completion: @escaping (Result<[ContentModelProtocol], LoadContentError>) -> Void) {
+    func fetchInitialContent(completion: @escaping (Result<[ContentModel], LoadContentError>) -> Void) {
         fetchContent(completion: completion)
     }
     
-    func fetchMoreContent(completion: @escaping (Result<[ContentModelProtocol], LoadContentError>) -> Void) {
+    func fetchMoreContent(completion: @escaping (Result<[ContentModel], LoadContentError>) -> Void) {
         guard currentlyLoadingPageId == nil else {
             completion(.failure(.alreadyLoading))
             return
@@ -26,7 +30,7 @@ class AllNewsService: ContentListServiceProtocol {
         fetchContent(completion: completion)
     }
     
-    private func fetchContent(completion: @escaping (Result<[ContentModelProtocol], LoadContentError>) -> Void) {
+    private func fetchContent(completion: @escaping (Result<[ContentModel], LoadContentError>) -> Void) {
         let content = (0...10).map { _ in NewsResponse(id: UUID().uuidString,
                                                        description: randomString(length: (10...100).randomElement()!),
                                                        imageURL: "https://picsum.photos/200",
@@ -35,12 +39,26 @@ class AllNewsService: ContentListServiceProtocol {
                                                        sourceURL: "www.google.com") }
         let randomNumber = Double((1...3).randomElement()!)
         
+        let models = mapNewsResponsesToContentModels(content)
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + randomNumber) {
-            completion(.success(content))
+            completion(.success(models))
             
             self.nextPageId = UUID().uuidString
             self.currentlyLoadingPageId = nil
         }
+    }
+    
+    private func mapNewsResponsesToContentModels(_ responses: [NewsResponse]) -> [ContentModel] {
+        let models = responses.map { response in
+            ContentModel(id: response.id,
+                         description: response.description ?? "",
+                         author: response.creators?.first ?? "",
+                         date: response.date,
+                         isFavorite: false)
+        }
+        
+        return models
     }
 }
 

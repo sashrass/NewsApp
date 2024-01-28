@@ -16,14 +16,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let window = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: window)
         
-        let navigationController = UINavigationController()
-        navigationController.navigationBar.prefersLargeTitles = true
+        let tabBarVC = getTabBarVC()
         
-        let allNewsVC = AllNewsAssembly.build()
-        navigationController.viewControllers = [allNewsVC]
-        
-        self.window?.rootViewController = navigationController
+        self.window?.rootViewController = tabBarVC
         self.window?.makeKeyAndVisible()
+    }
+    
+    private func getTabBarVC() -> UITabBarController {
+        let allNewsViewsVC = ContentListAssembly.buildAllNewsList()
+        let favoriteNewsVC = ContentListAssembly.buildFavoriteNewsList()
+        
+        let allNewsNavigationController = UINavigationController(rootViewController: allNewsViewsVC)
+        let favoriteNewsNavigationController = UINavigationController(rootViewController: favoriteNewsVC)
+        
+        allNewsNavigationController.tabBarItem = UITabBarItem(title: "All news",
+                                                              image: UIImage(systemName: "newspaper"),
+                                                              selectedImage: UIImage(systemName: "newspaper.fill"))
+        
+        favoriteNewsNavigationController.tabBarItem = UITabBarItem(title: "Favorite news",
+                                                              image: UIImage(systemName: "star"),
+                                                              selectedImage: UIImage(systemName: "star.fill"))
+        
+        let tabBarVC = UITabBarController()
+        tabBarVC.viewControllers = [allNewsNavigationController, favoriteNewsNavigationController]
+        
+        return tabBarVC
     }
 
 }
