@@ -106,7 +106,8 @@ class ContentDetailsView: UIView {
             scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
             containerView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            containerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            containerView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             
             imageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
