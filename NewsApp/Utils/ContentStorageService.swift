@@ -70,6 +70,7 @@ class ContentStorageService {
             let model = ContentModel(id: id,
                                      description: description,
                                      author: author,
+                                     imageURL: entity.imageURL,
                                      date: date,
                                      sourceURL: entity.sourceURL,
                                      isFavorite: true)

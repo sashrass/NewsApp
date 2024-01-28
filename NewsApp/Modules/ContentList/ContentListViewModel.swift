@@ -84,7 +84,7 @@ private extension ContentModel {
     var contentCellConfiguration: ContentCollectionCellConfiguration {
         ContentCollectionCellConfiguration(id: self.id,
                                            title: self.description,
-                                           secondText: self.date.description,
+                                           secondText: self.date.formatted(),
                                            thirdText: self.author,
                                            imageURL: self.imageURL)
     }

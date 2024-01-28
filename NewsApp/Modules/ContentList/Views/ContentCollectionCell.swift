@@ -24,11 +24,12 @@ class ContentCollectionCell: UICollectionViewCell {
         }
     }
     
+    private lazy var imageLoader = ImageLoader(for: imageView)
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .systemGreen
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -112,7 +113,13 @@ class ContentCollectionCell: UICollectionViewCell {
         ])
     }
     
-    private func configure() {
+    private func configure() {        
+        if let imageURL = configuration.imageURL {
+            imageLoader.loadImage(from: imageURL)
+        } else {
+            imageView.image = nil
+        }
+        
         titleLabel.text = configuration.title
         secondaryLabel.text = configuration.secondText
         thirdLabel.text = configuration.thirdText

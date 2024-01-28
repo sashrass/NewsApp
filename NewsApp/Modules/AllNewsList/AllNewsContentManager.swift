@@ -33,7 +33,7 @@ class AllNewsContentManager: ContentListContentManagerProtocol {
     private func fetchContent(completion: @escaping (Result<[ContentModel], LoadContentError>) -> Void) {
         let content = (0...10).map { _ in NewsResponse(id: UUID().uuidString,
                                                        description: randomString(length: (10...100).randomElement()!),
-                                                       imageURL: "https://picsum.photos/200",
+                                                       imageURL: "https://picsum.photos/\((10...300).randomElement()!)",
                                                        creators: [randomString(length: (10...20).randomElement()!)],
                                                        date: Date(),
                                                        sourceURL: "www.google.com") }
@@ -54,7 +54,9 @@ class AllNewsContentManager: ContentListContentManagerProtocol {
             ContentModel(id: response.id,
                          description: response.description ?? "",
                          author: response.creators?.first ?? "",
+                         imageURL: URL(string: response.imageURL ?? ""),
                          date: response.date,
+                         sourceURL: URL(string: response.sourceURL ?? ""),
                          isFavorite: false)
         }
         

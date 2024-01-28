@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		D93089232B667D1900D6A958 /* FavoriteNewsListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93089222B667D1900D6A958 /* FavoriteNewsListManager.swift */; };
 		D93089252B667E6E00D6A958 /* FavoriteNewsListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93089242B667E6E00D6A958 /* FavoriteNewsListRouter.swift */; };
+		D930892A2B66912A00D6A958 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93089292B66912A00D6A958 /* ImageLoader.swift */; };
+		D930892C2B66915E00D6A958 /* DataCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930892B2B66915D00D6A958 /* DataCacheManager.swift */; };
 		D9479FC82B64DD580017C5FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9479FC72B64DD580017C5FF /* AppDelegate.swift */; };
 		D9479FCA2B64DD580017C5FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9479FC92B64DD580017C5FF /* SceneDelegate.swift */; };
 		D9479FCC2B64DD580017C5FF /* ContentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9479FCB2B64DD580017C5FF /* ContentListViewController.swift */; };
@@ -39,6 +41,8 @@
 /* Begin PBXFileReference section */
 		D93089222B667D1900D6A958 /* FavoriteNewsListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteNewsListManager.swift; sourceTree = "<group>"; };
 		D93089242B667E6E00D6A958 /* FavoriteNewsListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteNewsListRouter.swift; sourceTree = "<group>"; };
+		D93089292B66912A00D6A958 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		D930892B2B66915D00D6A958 /* DataCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCacheManager.swift; sourceTree = "<group>"; };
 		D9479FC42B64DD580017C5FF /* NewsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9479FC72B64DD580017C5FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9479FC92B64DD580017C5FF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -204,6 +208,8 @@
 				D961BC382B6623A400F68CBE /* StorageService.swift */,
 				D961BC412B66312C00F68CBE /* ContentStorageService.swift */,
 				D961BC432B663BBF00F68CBE /* StoredContentManager.swift */,
+				D93089292B66912A00D6A958 /* ImageLoader.swift */,
+				D930892B2B66915D00D6A958 /* DataCacheManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -308,6 +314,8 @@
 				D9479FE62B64E53B0017C5FF /* ContentCollectionCell.swift in Sources */,
 				D9479FFA2B65390B0017C5FF /* NewsResponse.swift in Sources */,
 				D9479FD22B64DD580017C5FF /* NewsApp.xcdatamodeld in Sources */,
+				D930892C2B66915E00D6A958 /* DataCacheManager.swift in Sources */,
+				D930892A2B66912A00D6A958 /* ImageLoader.swift in Sources */,
 				D947A0002B655B240017C5FF /* ContentDetailsViewModel.swift in Sources */,
 				D93089232B667D1900D6A958 /* FavoriteNewsListManager.swift in Sources */,
 				D9479FF12B6516C90017C5FF /* ContentListProtocols & support stuff.swift in Sources */,

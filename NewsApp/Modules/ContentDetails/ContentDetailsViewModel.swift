@@ -53,7 +53,7 @@ private extension ContentModel {
     var contentConfiguration: ContentDetailsViewConfiguration {
         ContentDetailsViewConfiguration(imageURL: self.imageURL,
                                         descriptionText: self.description,
-                                        secondaryText: self.author,
-                                        thirdText: self.sourceURL?.absoluteString ?? "")
+                                        secondaryText: "Author: \(self.author)",
+                                        thirdText: "Link: \(self.sourceURL?.absoluteString ?? "")")
     }
 }

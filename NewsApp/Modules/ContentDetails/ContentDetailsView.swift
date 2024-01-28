@@ -24,9 +24,12 @@ class ContentDetailsView: UIView {
         }
     }
     
+    private lazy var imageLoader = ImageLoader(for: imageView)
+    
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.alwaysBounceVertical = true
         return scrollView
     }()
 
@@ -34,7 +37,6 @@ class ContentDetailsView: UIView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .systemOrange
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -120,6 +122,12 @@ class ContentDetailsView: UIView {
     }
     
     private func configure() {
+        if let imageURL = configuration.imageURL {
+            imageLoader.loadImage(from: imageURL)
+        } else {
+            imageView.image = nil
+        }
+        
         descriptionLabel.text = configuration.descriptionText
         secondaryLabel.text = configuration.secondaryText
         thirdLabel.text = configuration.thirdText
