@@ -23,7 +23,7 @@ class FavoriteNewsListManager: ContentListContentManagerProtocol {
         completion(.success(content))
     }
     
-    func fetchMoreContent(completion: @escaping (Result<[ContentModel], LoadContentError>) -> Void) {
+    func fetchMoreContentIfNeeded(completion: @escaping (Result<[ContentModel], LoadContentError>) -> Void) {
         completion(.failure(.noMoreContent))
     }
     

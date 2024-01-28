@@ -62,8 +62,7 @@ class ContentStorageService {
         let models = entities.compactMap { entity -> ContentModel? in
             guard let id = entity.id,
                   let description = entity.contentDescription,
-                  let author = entity.author,
-                  let date = entity.contentDate else {
+                  let author = entity.author else {
                 return nil
             }
             
@@ -71,7 +70,7 @@ class ContentStorageService {
                                      description: description,
                                      author: author,
                                      imageURL: entity.imageURL,
-                                     date: date,
+                                     date: entity.contentDate,
                                      sourceURL: entity.sourceURL,
                                      isFavorite: true)
             

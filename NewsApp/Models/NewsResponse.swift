@@ -7,12 +7,17 @@
 
 import Foundation
 
+struct NewsInfoResponse: Decodable {
+    let nextPage: String
+    let results: [NewsResponse]
+}
+
 struct NewsResponse: Decodable {
     let id: String
     let description: String?
     let imageURL: String?
     let creators: [String]?
-    let date: Date
+    let date: String
     let sourceURL: String?
     
     enum CodingKeys: String, CodingKey {

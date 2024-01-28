@@ -34,5 +34,5 @@ protocol ContentListContentManagerProtocol {
     var contentDeletedHandler: ((ContentModel) -> Void)? { get set }
     
     func fetchInitialContent(completion: @escaping (Result<[ContentModel], LoadContentError>) -> Void)
-    func fetchMoreContent(completion: @escaping (Result<[ContentModel], LoadContentError>) -> Void)
+    func fetchMoreContentIfNeeded(completion: @escaping (Result<[ContentModel], LoadContentError>) -> Void)
 }

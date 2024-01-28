@@ -36,7 +36,7 @@ class ContentListViewModel: ContentListViewModelProtocol {
     }
     
     func fetchMoreContent() {
-        contentManager?.fetchMoreContent { [weak self] result in
+        contentManager?.fetchMoreContentIfNeeded { [weak self] result in
             DispatchQueue.main.async {
                 self?.handleContentReceiving(result: result)
             }
@@ -84,7 +84,7 @@ private extension ContentModel {
     var contentCellConfiguration: ContentCollectionCellConfiguration {
         ContentCollectionCellConfiguration(id: self.id,
                                            title: self.description,
-                                           secondText: self.date.formatted(),
+                                           secondText: self.date?.formatted() ?? "",
                                            thirdText: self.author,
                                            imageURL: self.imageURL)
     }

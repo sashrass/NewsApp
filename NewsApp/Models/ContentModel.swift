@@ -13,7 +13,7 @@ struct ContentModel {
     var description: String
     var author: String
     var imageURL: URL?
-    var date: Date
+    var date: Date?
     var sourceURL: URL?
     var isFavorite: Bool
 }
