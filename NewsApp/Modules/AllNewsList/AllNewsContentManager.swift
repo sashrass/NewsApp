@@ -32,7 +32,7 @@ class AllNewsContentManager: ContentListContentManagerProtocol {
     
     private func fetchContent(completion: @escaping (Result<[ContentModel], LoadContentError>) -> Void) {
         let content = (0...10).map { _ in NewsResponse(id: UUID().uuidString,
-                                                       description: randomString(length: (10...100).randomElement()!),
+                                                       description: randomString(length: (10...2000).randomElement()!),
                                                        imageURL: "https://picsum.photos/\((10...300).randomElement()!)",
                                                        creators: [randomString(length: (10...20).randomElement()!)],
                                                        date: Date(),

@@ -28,7 +28,7 @@ class ContentCollectionCell: UICollectionViewCell {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -55,6 +55,7 @@ class ContentCollectionCell: UICollectionViewCell {
         label.numberOfLines = 0
         label.adjustsFontForContentSizeCategory = true
         label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return label
     }()
     
@@ -64,6 +65,7 @@ class ContentCollectionCell: UICollectionViewCell {
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.adjustsFontForContentSizeCategory = true
         label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return label
     }()
     
@@ -71,8 +73,10 @@ class ContentCollectionCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.font = UIFont.preferredFont(forTextStyle: .caption1)
+        label.textAlignment = .right
         label.adjustsFontForContentSizeCategory = true
         label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return label
     }()
     
@@ -100,16 +104,15 @@ class ContentCollectionCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            imageView.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor),
-            imageView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 80),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            imageView.heightAnchor.constraint(greaterThanOrEqualToConstant: 80),
             imageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3),
             
             labelsStackView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 10),
-            labelsStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            labelsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            labelsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            labelsStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            labelsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            labelsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
     }
     
